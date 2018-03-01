@@ -27,6 +27,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 
@@ -38,11 +39,22 @@
             <li><%= link_to 'Products',  [:admin, :products] %></li>
           </ul>
         </li>
+
         <li>
           <%= link_to cart_path do %>
             <%= fa_icon "shopping-cart" %> My Cart (<%= cart.size %>)
           <% end %>
         </li>
+
+        <a>
+          <% if current_user %>
+            <a>Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %></a>
+          <% else %>
+          <a><%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %></a>
+          <% end %>
+          
+        </a>
+
       </ul>
     </div>
   </div>
