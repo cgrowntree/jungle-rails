@@ -1,5 +1,6 @@
 class Admin::CategoriesController < ApplicationController
-
+  before_filter :authenticate
+  
   def new
     @category = Category.new
     @categories = Category.order(id: :desc).all
@@ -21,6 +22,14 @@ class Admin::CategoriesController < ApplicationController
     params.require(:category).permit(
       :name
     )
+  end
+
+  protected
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username = ENV['ADMIN_USER'] && password = ENV['ADMIN_PASS']
+    end
   end
 
 end
