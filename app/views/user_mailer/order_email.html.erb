@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for your purchase, <%= @user.name %></h1>
+    <p>You have successfully made a purchase totaling <%= humanized_money_with_symbol @order.total_cents %></p>
+      <% @order.line_items.each do |line_item| %>
+        <tr>
+          <td><%= line_item.product.name %></td>
+          <td><%= line_item.product.price_cents %></td>
+          <td><%= line_item.product.quantity %></td>
+          <% end %>
+        </tr>
+    </p>
+    <p>Thanks for your purchase and have a great day!</p>
+  </body>
+</html>

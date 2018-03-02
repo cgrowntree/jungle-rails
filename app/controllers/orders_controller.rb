@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @line_items = LineItem.where(order: @order)
+    @user = User.find_by_email(params[:email])
   end
 
   def create
@@ -12,6 +13,8 @@ class OrdersController < ApplicationController
     if order.valid?
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
+      UserMailer.order_email(current_user, order).deliver_later
+
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
     end
@@ -31,14 +34,15 @@ class OrdersController < ApplicationController
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_total, # in cents
-      description: "Khurram Virani's Jungle Order",
+      description:  "#{current_user.name}'s Jungle Order",
       currency:    'cad'
     )
   end
 
   def create_order(stripe_charge)
+    @user = User.find(session[:user_id])
     order = Order.new(
-      email: params[:stripeEmail],
+      email: current_user.email,
       total_cents: cart_total,
       stripe_charge_id: stripe_charge.id, # returned by stripe
     )
@@ -53,7 +57,7 @@ class OrdersController < ApplicationController
         )
       end
     end
-    order.save!
+    order.save
     order
   end
 

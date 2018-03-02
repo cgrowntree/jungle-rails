@@ -1,0 +1,13 @@
+Welcome to example.com, <%= @user.name %>
+===============================================
+ 
+Thank you for your purchase, <%= @user.name %>,
+You have successfully made a purchase totaling <%= @order.total_cents %>
+ 
+<% @order.line_items.each do |line_item| %>
+  <%= line_item.product.name %>
+  <%= line_item.product.price_cents %>
+  <%= line_item.product.quantity %>
+  <% end %>
+ 
+Thanks for joining and have a great day!
