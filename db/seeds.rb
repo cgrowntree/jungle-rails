@@ -132,5 +132,34 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+User.destroy_all
+
+User.create({
+  name: "Chris",
+  email: "cgrowntree@gmail.com",
+  password_digest: "$2a$10$PUmNTt5EVMDmZDRjDg.oWuuBi0junnst9XxT7Ntb2Q5RETBpDADOO"
+})
+
+User.create({
+  name: "Topher",
+  email: "topher@gmail.com",
+  password_digest: "$2a$10$1spqjGXHlb.LKiwdOQddQuCFaWg0EzYIzC6S2baqnYSUVZnw7BpRq"
+})
+
+Review.destroy_all
+
+Review.create({
+  product_id: 1,
+  user_id: 1,
+  description: 'This is an awesome product!',
+  rating: 5
+})
+
+Review.create({
+  product_id: 2,
+  user_id: 2,
+  description: 'This is an OK product!',
+  rating: 3
+})
 
 puts "DONE!"
