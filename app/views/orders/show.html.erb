@@ -6,6 +6,7 @@
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order <%= current_user.email %>! </h4>
+  </div>
 
   <div class="panel panel-default items">
   <table class="table table-bordered">
@@ -20,7 +21,7 @@
     <tbody>
       <% @cart_total = 0 %>
       <% @line_items.each do |item| %>
-        <%= render 'item', product_id: item.product_id, details: item.product.description, quantity: item.quantity%>
+        <%= render 'item', product_id: item.product_id, details: item.product.description, quantity: item.quantity %>
       <% end %>
     </tbody>
     <tfoot>
@@ -35,8 +36,6 @@
     </tfoot>
   </table>
 </div>
-
-  </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 

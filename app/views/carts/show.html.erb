@@ -5,8 +5,10 @@
   </header>
 
 <% if cart.empty? %>
-<h3>Sorry, it appears that your cart is empty.</h3>
-<h1><a><%= link_to 'Home', :root %></a></h1>
+  <div class="order-summary jumbotron">
+  <h3>Sorry, it appears that your cart is empty.</h3>
+  <button type="button" class="btn btn-secondary btn-lg"> <%= link_to 'Home', :root %> </button>
+  </div>
 
 <% else %>
 
