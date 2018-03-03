@@ -22,13 +22,34 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+
           <dt>Rating</dt>
           <dd><%= @product.reviews.average('rating') %></dd>
+
           <dt>Reviews</dt>
           <% @product.reviews.each do |review| %>
             <dd><%= review.description %></dd>
           <% end %>
+
+          <% if current_user %>
+            <h1>Create review</h1>
+              <%= form_for [@product, @review] do |f| %>
+                <div class="field">
+                  <%= f.label :rating %><br>
+                  <%= f.select :rating, ['1', '2', '3', '4', '5'] %>
+                </div>
+                <div class="field">
+                  <%= f.label :description %><br>
+                  <%= f.text_field :description, class: 'form-control' %>
+                </div>
+                  <div class="actions">
+                    <%= f.submit %>
+                  </div>
+                  <% end %>
+              <% end %>
           
+          
+
         </dl>
       </div>
     </div>
