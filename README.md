@@ -1,7 +1,11 @@
-# Jungle
+Jungle
+=====================
 
-A mini e-commerce application built with Rails 4.2 for purposes of teaching Rails by example.
+A full­stack E­commerce application project simulating a real­world scenario of inheriting a large code base, working on bug fixes and adding features to the product. Gained valuable experience working with Ruby on Rails, Postgres, Active Record and Bootstrap.
 
+## Screenshots
+!["Screenshot of app"](https://github.com/cgrowntree/jungle-rails/blob/master/docs/jungle-main.png)
+!["Screenshot of app"](https://github.com/cgrowntree/jungle-rails/blob/master/docs/jungle-review.png)
 
 ## Setup
 
