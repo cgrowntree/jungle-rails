@@ -24,32 +24,69 @@
           <dd><%= @product.price %></dd>
 
           <dt>Rating</dt>
-          <dd><%= @product.reviews.average('rating') %></dd>
+          <% if @product.reviews.average('rating') == nil %>
+              <dd>None<dd>
+            <% else %>
+              <% arr = Array.new(5) %>
+              <% count = @product.reviews.average('rating') %>
+              <% for i in 0..4 %>
+              <% count - 1 >= 0 ? arr[i] = 'star' : arr[i] = 'star-o' %>
+              <% count -= 1  %>
+              <% end %>
+              <dd><%= fa_icon arr[0] %> <%= fa_icon arr[1] %> <%= fa_icon arr[2] %> <%= fa_icon arr[3] %> <%= fa_icon arr[4] %></dd>
+            <% end %>  
 
-          <dt>Reviews</dt>
-          <% @product.reviews.each do |review| %>
-            <dd><%= review.description %></dd>
-          <% end %>
+          </dl>
+        </div>
 
+        <div class="col-sm-8 jumbotron">
           <% if current_user %>
-            <h1>Create review</h1>
+            <h3>Create a new review</h3>
               <%= form_for [@product, @review] do |f| %>
                 <div class="field">
                   <%= f.label :rating %><br>
                   <%= f.select :rating, ['1', '2', '3', '4', '5'] %>
-                </div>
+                </div><br>
                 <div class="field">
                   <%= f.label :description %><br>
-                  <%= f.text_field :description, class: 'form-control' %>
-                </div>
-                  <div class="actions">
-                    <%= f.submit %>
+                  <%= f.text_field :description, class: 'form-control', :rows => 10  %>
+                </div><br>
+                  <div>
+                    <%= f.submit 'Create Review', class: 'btn btn-primary btn-lg' %>
                   </div>
                   <% end %>
+                  <% else %>
+                  <h3>Please login to leave a review</h3>
               <% end %>
+          </div>
 
-        </dl>
-      </div>
+          
+              <% @product.reviews.reverse.each do |review| %>
+                <div class="col-sm-8 jumbotron" style="float:right;">
+                <dd><h4><%= review.user.name %></h4></dd>
+                <dd><i><%= time_tag(review.created_at) %></i></dd>
+                <dd>
+                <% arr = Array.new(5) %>
+                <% count = review.rating %>
+                <% for i in 0..4 %>
+                <% count - 1 >= 0 ? arr[i] = 'star' : arr[i] = 'star-o' %>
+                <% count -= 1  %>
+                <% end %>
+                <dd><%= fa_icon arr[0] %> <%= fa_icon arr[1] %> <%= fa_icon arr[2] %> <%= fa_icon arr[3] %> <%= fa_icon arr[4] %></dd>
+                </dd><br>
+                <dd><%= review.description %></dd><br>
+                <% if review.user == current_user %>
+                  <dd><%= button_to ('DELETE'), [@product, review], method: :delete %></dd>
+                  <% end %>  
+                  </div> 
+              <% end %>
+              
+              
+          
+
+                
+
+
     </div>
 
   </article>
