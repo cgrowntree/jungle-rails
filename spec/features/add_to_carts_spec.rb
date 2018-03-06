@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "User can navigate from home page to ProductDetails by clicking on a product", type: :feature, js: true do
+RSpec.feature "AddToCarts", type: :feature, js: true do
   
   # SETUP
   before :each do
@@ -21,14 +21,14 @@ RSpec.feature "User can navigate from home page to ProductDetails by clicking on
     # ACT
     visit root_path
 
-    click_on 'Details'
+    click_on 'Add'
 
     # DEBUG
-    # sleep 3
-    # save_screenshot
+    sleep 3
+    save_screenshot
 
     # VERIFY
-    expect(page).to have_content 'Name'
+    expect(page).to have_content 'My Cart (1)'
   end
 
 end
